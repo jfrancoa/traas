@@ -13,3 +13,5 @@ parameters:
   zuul_changes: openstack/tripleo-common:stable/pike:refs/changes/08/523408/13
   trass_repo: https://github.com/sathlan/traas
   zuul_branch: stable/pike
+  overcloud_branch: stable/ocata
+  undercloud_branch: stable/pike
