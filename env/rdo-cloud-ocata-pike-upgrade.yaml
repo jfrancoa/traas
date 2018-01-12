@@ -10,7 +10,7 @@ parameters:
   toci_jobtype: multinode-1ctlr-featureset011
   tripleo_ci_remote: https://git.openstack.org/openstack-infra/tripleo-ci
   tripleo_ci_branch: master
-  ci_changes: openstack/tripleo-quickstart:532370^openstack/tripleo-quickstart:529571
+  ci_changes: openstack/tripleo-quickstart:532370
   zuul_changes: openstack/tripleo-heat-templates:stable/pike:refs/changes/83/532783/1
   trass_repo: https://github.com/sathlan/traas
   zuul_branch: stable/pike
