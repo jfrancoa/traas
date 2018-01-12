@@ -15,3 +15,6 @@ parameters:
   tripleo_ci_remote: https://git.openstack.org/openstack-infra/tripleo-ci
   tripleo_ci_branch: master
   trass_repo: https://github.com/sathlan/traas
+  overcloud_branch: stable/newton
+  undercloud_branch: master
+  zuul_branch: master
