@@ -1,5 +1,5 @@
 parameters:
-  overcloud_flavor: m1.large
+  overcloud_flavor: m1.medium
   overcloud_image: CentOS-7-x86_64-GenericCloud-1708
   key_name: rdo-cloud
   private_net: private-net
