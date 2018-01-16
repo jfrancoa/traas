@@ -152,6 +152,7 @@ resources:
         env STABLE_RELEASE=${BRANCH} tripleo-ci/scripts/tripleo.sh --repo-setup
         yum -y install python-heat-agent*
         rm -f /etc/yum.repos.d/delorean*
+        yum clean metadata
         systemctl daemon-reload
         systemctl enable os-collect-config
         # unbound is required to have local resolver
