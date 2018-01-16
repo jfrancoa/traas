@@ -11,5 +11,5 @@ parameters:
   tripleo_ci_remote: https://git.openstack.org/openstack-infra/tripleo-ci
   tripleo_ci_branch: master
   trass_repo: https://github.com/sathlan/traas
-  ci_changes: openstack/tripleo-quickstart-extras:526006
+  ci_changes: openstack/tripleo-quickstart-extras:526006^openstack/tripleo-quickstart:534306
   zuul_changes: openstack/python-tripleoclient:master:refs/changes/13/526213/11^openstack/tripleo-common:master:refs/changes/14/526214/4^openstack/tripleo-heat-templates:master:refs/changes/17/526017/2
