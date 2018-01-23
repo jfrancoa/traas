@@ -107,6 +107,11 @@ parameters:
     default: ""
     description: list of extra packages to install on the undercloud.
 
+  overcloud_extra_pkg:
+    type: string
+    default: ""
+    description: list of extra packages to install on the overcloud.
+
 resources:
 
   public_network:
@@ -129,8 +134,13 @@ resources:
             #!/bin/bash
             set -eux
             BRANCH="$branch"
+            YUM_EXTRA=""
+            if [ -n "$extra_pkg" ]; then
+               YUM_EXTRA="yum reinstall -y $extra_pkg"
+            fi
           params:
             $branch: {get_param: overcloud_branch}
+            $extra_pkg: {get_param: overcloud_extra_pkg}
 
   undercloud_user_data_script_branch:
     type: OS::Heat::Value
