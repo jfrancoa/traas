@@ -50,6 +50,7 @@ curl -o ${TMP_DIR}/${OVERCLOUD_TAR_NAME} ${OVERCLOUD_TAR_URL}
     OVERCLOUD_ID=$(openstack image create \
               --disk-format qcow2 --container-format bare \
               --file ./overcloud-full.qcow2 \
+              -f value -c id \
               --property kernel_id=${KERNEL_ID} --property ramdisk_id=${RAMDISK_ID} \
               ${OVERCLOUD_NAME})
 
