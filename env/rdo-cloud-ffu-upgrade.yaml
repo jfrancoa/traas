@@ -1,6 +1,6 @@
 parameters:
   overcloud_flavor: m1.medium
-  overcloud_image: CentOS-7-x86_64-GenericCloud-1708
+  overcloud_image: overcloud-full-newton
   key_name: rdo-cloud
   private_net: private-net
   overcloud_node_count: 1
