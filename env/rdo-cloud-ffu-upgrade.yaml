@@ -19,6 +19,5 @@ parameters:
   overcloud_branch: stable/newton
   undercloud_branch: master
   zuul_branch: master
-  undercloud_extra_pkg: openstack-neutron-openvswitch
   # https://bugs.launchpad.net/diskimage-builder/+bug/1714604
   overcloud_extra_pkg: iputils
