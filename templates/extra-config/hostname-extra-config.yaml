@@ -19,7 +19,8 @@ resources:
         set -eux
         sed -i '/search.*/d' /etc/resolv.conf
         echo 'supersede domain-name "";' >> /etc/dhcp/dhclient.conf
-        hostnamectl set-hostname --static $(hostname)
+        # Make sure the hostname does not contain dot.
+        hostnamectl set-hostname --static $(hostname | cut -d. -f1)
 
   HostnameExtraConfigUndercloudDeployment:
     type: OS::Heat::SoftwareDeployment
