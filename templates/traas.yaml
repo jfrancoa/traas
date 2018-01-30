@@ -108,6 +108,11 @@ parameters:
     description: Release to be used by --release quickstart option
 
 
+  tweak_hostname:
+    type: string
+    default: ""
+    description: Make sure hostname has no dot in it.
+
 resources:
 
   public_network:
@@ -150,22 +155,36 @@ resources:
     type: OS::Heat::Value
     properties:
       type: string
-      value: |
-        rpm -q git || yum -y install git
-        git clone https://git.openstack.org/openstack-infra/tripleo-ci
-        export HOME=/root
-        BRANCH=${BRANCH#stable/}
-        env STABLE_RELEASE=${BRANCH} tripleo-ci/scripts/tripleo.sh --repo-setup
-        yum -y install python-heat-agent* jq vim
-        rm -f /etc/yum.repos.d/delorean*
-        yum clean metadata
-        systemctl daemon-reload
-        systemctl enable os-collect-config
-        # unbound is required to have local resolver
-        yum install -y unbound
-        systemctl enable unbound
+      value:
+        str_replace:
+          template: |
+            if [ -n "$tweak_hostname" ]; then
+                # From blah.rdocloud, I have facter hostname returning blah and
+                # bootstrap_nodeid set blah.rdocloud.  This fix this discrepancy.
+                short_hostname=$(hostname | cut -d. -f1)
+                domain=$(hostname | cut -d. -f2-)
+                hostnamectl set-hostname --static $short_hostname
+                echo 127.0.1.1 $short_hostname.$domain $short_hostname >> /etc/hosts
+            fi
 
-        reboot
+            rpm -q git || yum -y install git
+            git clone https://git.openstack.org/openstack-infra/tripleo-ci
+            export HOME=/root
+            BRANCH=${BRANCH#stable/}
+            env STABLE_RELEASE=${BRANCH} tripleo-ci/scripts/tripleo.sh --repo-setup
+            yum -y install python-heat-agent* jq vim
+            $YUM_EXTRA
+            rm -f /etc/yum.repos.d/delorean*
+            yum clean metadata
+            systemctl daemon-reload
+            systemctl enable os-collect-config
+            # unbound is required to have local resolver
+            yum install -y unbound
+            systemctl enable unbound
+
+            reboot
+          params:
+            $tweak_hostname: {get_param: tweak_hostname}
 
   undercloud:
     depends_on: [public_network]
