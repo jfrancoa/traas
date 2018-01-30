@@ -53,11 +53,12 @@ parameters:
   stable_release:
     type: string
     default: 'master'
-    description: Release to be used by quickstart --release option
+    description: Release to be used by --release quickstart option.  Will
+                 not be directly set if zuul_branch is set.
 
   zuul_branch:
     type: string
-    default: 'master'
+    default: ''
     description: Which branch are we starting from.
 
 resources:
@@ -77,7 +78,9 @@ resources:
         echo export CI_CHANGES=\"$CI_CHANGES\" >> /etc/profile.d/traas.sh
         echo export TRIPLEO_CI_REMOTE=\"$TRIPLEO_CI_REMOTE\" >> /etc/profile.d/traas.sh
         echo export TRIPLEO_CI_BRANCH=\"$TRIPLEO_CI_BRANCH\" >> /etc/profile.d/traas.sh
-        echo export STABLE_RELEASE=\"$STABLE_RELEASE\" >> /etc/profile.d/traas.sh
+        if [ -z \"$ZUUL_BRANCH\" ]; then
+            echo export STABLE_RELEASE=\"$STABLE_RELEASE\" >> /etc/profile.d/traas.sh
+        fi
         echo export ZUUL_BRANCH=\"$ZUUL_BRANCH\" >> /etc/profile.d/traas.sh
         mkdir -p /etc/nodepool
         if [ ! -f /etc/nodepool/id_rsa ]; then

@@ -68,7 +68,7 @@ parameters:
 
   zuul_branch:
     type: string
-    default: 'master'
+    default: ''
     description: Which branch are we starting from.
 
   undercloud_branch:
@@ -105,7 +105,8 @@ parameters:
   stable_release:
     type: string
     default: master
-    description: Release to be used by --release quickstart option
+    description: Release to be used by --release quickstart option.  Will
+                 not be directly set if zuul_branch is set.
 
 
 resources:
