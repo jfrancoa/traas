@@ -165,6 +165,7 @@ resources:
     properties:
       type: string
       value: |
+        echo "ip_resolve=4" >> /etc/yum.conf
         rpm -q git || yum -y install git
         git clone https://git.openstack.org/openstack-infra/tripleo-ci
         export HOME=/root
